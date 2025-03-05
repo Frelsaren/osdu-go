@@ -12,16 +12,21 @@ import (
 	"strings"
 )
 
+const (
+	SearchServicePath  = "search/v2/query"
+	StorageServicePath = "storage/v2/records"
+)
+
 type service struct {
-	client *Client
+	client   *Client
+	endpoint string
 }
 
 type Client struct {
-	client  *http.Client
-	Token   *string
-	BaseURL *url.URL
-
-	common service
+	client    *http.Client
+	Token     *string
+	BaseURL   *url.URL
+	Partition *string
 
 	Storage *StorageService
 	Search  *SearchService
@@ -33,9 +38,14 @@ func (c *Client) Initialize() {
 		c.client = &http.Client{}
 	}
 
-	c.common.client = c
-	c.Storage = (*StorageService)(&c.common)
-	c.Search = (*SearchService)(&c.common)
+	c.Storage = &StorageService{
+		client:   c,
+		endpoint: StorageServicePath,
+	}
+	c.Search = &SearchService{
+		client:   c,
+		endpoint: SearchServicePath,
+	}
 }
 
 func (c *Client) NewRequest(method, urlStr string, body interface{}) (*http.Request, error) {
@@ -66,7 +76,13 @@ func (c *Client) NewRequest(method, urlStr string, body interface{}) (*http.Requ
 
 	if body != nil {
 		req.Header.Set("Content-Type", "application/json")
+
 	}
+
+	if c.Token != nil {
+		req.Header.Set("Authorization", "Bearer "+*c.Token)
+	}
+	req.Header.Set("Data-Partition-Id", *c.Partition)
 
 	return req, nil
 }
@@ -117,30 +133,10 @@ func (c *Client) bareDo(ctx context.Context, caller *http.Client, req *http.Requ
 		default:
 		}
 
-		// If the error type is *url.Error, sanitize its URL before returning.
-		if e, ok := err.(*url.Error); ok {
-			if url, err := url.Parse(e.URL); err == nil {
-				e.URL = sanitizeURL(url).String()
-				return resp, e
-			}
-		}
-
 		return resp, err
 	}
 
 	return resp, err
-}
-
-func sanitizeURL(uri *url.URL) *url.URL {
-	if uri == nil {
-		return nil
-	}
-	params := uri.Query()
-	if len(params.Get("client_secret")) > 0 {
-		params.Set("client_secret", "REDACTED")
-		uri.RawQuery = params.Encode()
-	}
-	return uri
 }
 
 func withContext(ctx context.Context, req *http.Request) *http.Request {

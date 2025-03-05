@@ -2,7 +2,6 @@ package osdu
 
 import "context"
 
-// StorageService provides access to the Storage API
 type SearchService service
 
 type QueryParams struct {
@@ -51,7 +50,7 @@ type SearchResponse struct {
 }
 
 func (s *SearchService) Query(ctx context.Context, params QueryParams) (SearchResponse, error) {
-	req, err := s.client.NewRequest("POST", "search/v2/query", params)
+	req, err := s.client.NewRequest("POST", s.endpoint, params)
 	if err != nil {
 		return SearchResponse{}, err
 	}
@@ -62,5 +61,5 @@ func (s *SearchService) Query(ctx context.Context, params QueryParams) (SearchRe
 		return SearchResponse{}, err
 	}
 
-	return SearchResponse{}, nil
+	return searchResponse, nil
 }

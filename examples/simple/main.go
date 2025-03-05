@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"net/url"
 
 	"github.com/Frelsaren/osdu-go/osdu"
@@ -22,9 +23,20 @@ func main() {
 
 	client.Initialize()
 
-	client.Search.Query(ctx, osdu.QueryParams{
+	searchResults, err := client.Search.Query(ctx, osdu.QueryParams{
 		Kind: []string{"osdu:wks:master-data--Field:1.1.0"},
 	})
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(len(searchResults.Results))
+
+	var sampleInterface interface{}
+	err = client.Storage.GetRecord(ctx, "id", &sampleInterface, nil)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(sampleInterface.(map[string]interface{})["id"])
 
 }
 
