@@ -10,7 +10,7 @@ import (
 
 func main() {
 	ctx := context.Background()
-	BaseURL, e := url.Parse("http://localhost:8080/")
+	BaseURL, e := url.Parse("http://localhost:8010/")
 	if e != nil {
 		panic(e)
 	}
@@ -25,20 +25,22 @@ func main() {
 
 	client.Initialize()
 
-	searchResults, err := client.Search.Query(ctx, osdu.QueryParams{
-		Kind: []string{"osdu:wks:master-data--Field:1.1.0"},
-	})
+	storageHealth, err := client.Storage.IsHealthy(ctx)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(len(searchResults.Results))
+	searchHealth, err := client.Search.IsHealthy(ctx)
+	if err != nil {
+		panic(err)
+	}
+	schemaHealth, err := client.Schema.IsHealthy(ctx)
+	if err != nil {
+		panic(err)
+	}
 
-	var sampleInterface interface{}
-	err = client.Storage.GetRecord(ctx, "id", &sampleInterface, nil)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(sampleInterface.(map[string]interface{})["id"])
+	fmt.Printf("Storage is up: %t\n", storageHealth)
+	fmt.Printf("Search is up: %t\n", searchHealth)
+	fmt.Printf("Schema is up: %t\n", schemaHealth)
 
 }
 
