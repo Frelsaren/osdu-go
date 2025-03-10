@@ -41,5 +41,5 @@ func main() {
 }
 
 func acquireToken() string {
-	return "bearer token"
+	return "token"
 }
