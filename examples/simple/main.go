@@ -15,7 +15,7 @@ func main() {
 		panic(e)
 	}
 	token := acquireToken()
-	partition := "partition"
+	partition := "default"
 
 	client := osdu.Client{
 		BaseURL:   BaseURL,
@@ -43,5 +43,5 @@ func main() {
 }
 
 func acquireToken() string {
-	return "token"
+	return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOaWNlIjoidHJ5In0.1GqgqivdoFiFjXPJvs8suQthSfmC_B_uAnQMDsrXWA0"
 }
