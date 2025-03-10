@@ -49,7 +49,7 @@ type SearchResponse struct {
 }
 
 func (s *SearchService) Query(ctx context.Context, params QueryParams) (SearchResponse, error) {
-	req, err := s.client.NewRequest("POST", s.endpoint, params)
+	req, err := s.client.NewRequest("POST", s.endpoint+"/query", params)
 	if err != nil {
 		return SearchResponse{}, err
 	}

@@ -7,7 +7,7 @@ import (
 )
 
 func (s *StorageService) GetRecord(ctx context.Context, id string, v *interface{}, attributes []string) error {
-	url, _ := url.Parse(s.endpoint + "/" + id)
+	url, _ := url.Parse(s.endpoint + "/records/" + id)
 
 	if len(attributes) > 0 {
 		q := url.Query()

@@ -15,10 +15,12 @@ func main() {
 		panic(e)
 	}
 	token := acquireToken()
+	partition := "partition"
 
 	client := osdu.Client{
-		BaseURL: BaseURL,
-		Token:   &token,
+		BaseURL:   BaseURL,
+		Token:     &token,
+		Partition: &partition,
 	}
 
 	client.Initialize()

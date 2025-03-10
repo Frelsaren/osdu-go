@@ -13,8 +13,8 @@ import (
 )
 
 const (
-	SearchServicePath  = "search/v2/query"
-	StorageServicePath = "storage/v2/records"
+	SearchServicePath  = "search/v2"
+	StorageServicePath = "storage/v2"
 )
 
 type service struct {
