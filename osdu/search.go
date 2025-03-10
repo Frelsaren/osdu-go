@@ -5,14 +5,15 @@ import "context"
 type SearchService service
 
 type QueryParams struct {
-	Kind            []string      `json:"kind"`
-	Query           string        `json:"query,omitempty"`
-	Offset          int           `json:"offset,omitempty"`
-	Limit           int           `json:"limit,omitempty"`
-	Sort            string        `json:"sort,omitempty"`
-	TrackTotalCount bool          `json:"trackTotalCount,omitempty"`
-	AggregateBy     []string      `json:"aggregateBy,omitempty"`
-	SpatialFilter   SpatialFilter `json:"spatialFilter,omitempty"`
+	Kind            []string       `json:"kind"`
+	Query           string         `json:"query,omitempty"`
+	Offset          int            `json:"offset,omitempty"`
+	Limit           int            `json:"limit,omitempty"`
+	Sort            string         `json:"sort,omitempty"`
+	TrackTotalCount bool           `json:"trackTotalCount,omitempty"`
+	AggregateBy     []string       `json:"aggregateBy,omitempty"`
+	SpatialFilter   *SpatialFilter `json:"spatialFilter,omitempty"`
+	ReturnedFields  []string       `json:"returnedFields,omitempty"`
 }
 
 type LatLon struct {
@@ -41,8 +42,8 @@ type SpatialFilter struct {
 }
 
 type SearchResponse struct {
-	Results      []interface{} `json:"results"`
-	TotalCount   int           `json:"totalCount"`
+	Results      []any `json:"results"`
+	TotalCount   int   `json:"totalCount"`
 	Aggregations []struct {
 		Key   string `json:"key"`
 		Count int    `json:"count"`
