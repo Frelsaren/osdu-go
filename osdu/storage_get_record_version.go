@@ -3,7 +3,7 @@ package osdu
 import "context"
 
 func (s *StorageService) GetRecordVersion(ctx context.Context, id string, version string, v *interface{}) error {
-	req, err := s.client.NewRequest("GET", s.endpoint+"/records/"+id+"/"+version, nil)
+	req, err := s.client.NewRequest("GET", s.endpoint+"/records/"+id+"/"+version, nil, nil)
 	if err != nil {
 		return err
 	}

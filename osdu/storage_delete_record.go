@@ -3,7 +3,7 @@ package osdu
 import "context"
 
 func (s *StorageService) DeleteRecord(ctx context.Context, id string) error {
-	req, err := s.client.NewRequest("POST", s.endpoint+"/records/"+id+":delete", nil)
+	req, err := s.client.NewRequest("POST", s.endpoint+"/records/"+id+":delete", nil, nil)
 	if err != nil {
 		return err
 	}

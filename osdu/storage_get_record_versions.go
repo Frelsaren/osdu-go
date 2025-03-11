@@ -8,7 +8,7 @@ type RecordVersionsResponse struct {
 }
 
 func (s *StorageService) GetRecordVersions(ctx context.Context, id string) (RecordVersionsResponse, error) {
-	req, err := s.client.NewRequest("GET", s.endpoint+"/records/versions/"+id, nil)
+	req, err := s.client.NewRequest("GET", s.endpoint+"/records/versions/"+id, nil, nil)
 	if err != nil {
 		return RecordVersionsResponse{}, err
 	}

@@ -48,8 +48,8 @@ type SearchResponse struct {
 	} `json:"aggregations"`
 }
 
-func (s *SearchService) Query(ctx context.Context, params QueryParams) (SearchResponse, error) {
-	req, err := s.client.NewRequest("POST", s.endpoint+"/query", params)
+func (s *SearchService) Query(ctx context.Context, body QueryParams) (SearchResponse, error) {
+	req, err := s.client.NewRequest("POST", s.endpoint+"/query", body, nil)
 	if err != nil {
 		return SearchResponse{}, err
 	}

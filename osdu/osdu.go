@@ -54,7 +54,7 @@ func (c *Client) Initialize() {
 	}
 }
 
-func (c *Client) NewRequest(method, urlStr string, body interface{}) (*http.Request, error) {
+func (c *Client) NewRequest(method, urlStr string, body interface{}, urlParams *map[string]string) (*http.Request, error) {
 	if !strings.HasSuffix(c.BaseURL.Path, "/") {
 		return nil, fmt.Errorf("baseURL must have a trailing slash, but %q does not", c.BaseURL)
 	}
@@ -63,6 +63,12 @@ func (c *Client) NewRequest(method, urlStr string, body interface{}) (*http.Requ
 	if err != nil {
 		return nil, err
 	}
+
+	params := url.Values{}
+	for k, v := range *urlParams {
+		params.Add(k, v)
+	}
+	u.RawQuery = params.Encode()
 
 	var buf io.ReadWriter
 	if body != nil {
