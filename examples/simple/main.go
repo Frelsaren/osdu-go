@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"net/url"
 
 	"github.com/Frelsaren/osdu-go/osdu"
@@ -10,7 +9,7 @@ import (
 
 func main() {
 	ctx := context.Background()
-	BaseURL, e := url.Parse("http://localhost:8010/")
+	BaseURL, e := url.Parse("http://localhost:8080/")
 	if e != nil {
 		panic(e)
 	}
@@ -25,22 +24,11 @@ func main() {
 
 	client.Initialize()
 
-	storageHealth, err := client.Storage.IsHealthy(ctx)
-	if err != nil {
-		panic(err)
-	}
-	searchHealth, err := client.Search.IsHealthy(ctx)
-	if err != nil {
-		panic(err)
-	}
-	schemaHealth, err := client.Schema.IsHealthy(ctx)
-	if err != nil {
-		panic(err)
+	params := osdu.GetRecordOfKindParams{
+		Kind: "osdu:wks:master-data--Field:1.0.0",
 	}
 
-	fmt.Printf("Storage is up: %t\n", storageHealth)
-	fmt.Printf("Search is up: %t\n", searchHealth)
-	fmt.Printf("Schema is up: %t\n", schemaHealth)
+	client.Storage.GetRecordsOfKind(ctx, params)
 
 }
 
