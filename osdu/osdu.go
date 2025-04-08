@@ -64,11 +64,15 @@ func (c *Client) NewRequest(method, urlStr string, body interface{}, urlParams *
 		return nil, err
 	}
 
-	params := url.Values{}
-	for k, v := range *urlParams {
-		params.Add(k, v)
+	if urlParams != nil {
+		params := url.Values{}
+
+		for k, v := range *urlParams {
+			params.Add(k, v)
+		}
+
+		u.RawQuery = params.Encode()
 	}
-	u.RawQuery = params.Encode()
 
 	var buf io.ReadWriter
 	if body != nil {
@@ -104,6 +108,11 @@ func (c *Client) Do(ctx context.Context, req *http.Request, v interface{}) (*htt
 	if err != nil {
 		return resp, err
 	}
+
+	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
+		return resp, errors.New(resp.Status)
+	}
+
 	defer resp.Body.Close()
 
 	switch v := v.(type) {
