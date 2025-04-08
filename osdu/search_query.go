@@ -40,8 +40,9 @@ type SpatialFilter struct {
 }
 
 type SearchResponse struct {
-	Results      []any `json:"results"`
-	TotalCount   int   `json:"totalCount"`
+	Results      []any  `json:"results"`
+	TotalCount   int    `json:"totalCount"`
+	Cursor       string `json:"cursor,omitempty"`
 	Aggregations []struct {
 		Key   string `json:"key"`
 		Count int    `json:"count"`
