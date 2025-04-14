@@ -1,7 +1,5 @@
 package osdu
 
-// /api/search/v2/liveness_check
-
 import "context"
 
 func (s *SearchService) IsHealthy(ctx context.Context) (bool, error) {
