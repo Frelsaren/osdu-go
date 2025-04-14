@@ -3,7 +3,8 @@
 ## Description
 OSDU-Go is a Go client library for interacting with the OSDU (Open Subsurface Data Universe) data platform. It provides a set of tools and utilities to facilitate the integration and management of subsurface data within the OSDU ecosystem.
 
-NB: Package is still under development, not all endpoints have been implemented and/or tested
+NB: Package is still under development, not all endpoints have been implemented and/or tested.
+    Methods and Types are subject to change.
 
 ## Table of Contents
 - [Installation](#installation)
