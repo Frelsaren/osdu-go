@@ -21,11 +21,11 @@ func (s *SearchService) QueryWithCursor(ctx context.Context, body QueryWithCurso
 		return SearchResponse{}, err
 	}
 
-	var searchResponse SearchResponse
-	_, err = s.client.Do(ctx, req, &searchResponse)
+	var res SearchResponse
+	_, err = s.client.Do(ctx, req, &res)
 	if err != nil {
 		return SearchResponse{}, err
 	}
 
-	return searchResponse, nil
+	return res, nil
 }

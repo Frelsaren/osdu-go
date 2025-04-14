@@ -10,15 +10,15 @@ type GetRecordsParams struct {
 	Attributes []string `json:"attributes"`
 }
 
-type GetRecordsReturn struct {
+type RecordsResponse struct {
 	Records        []interface{} `json:"records"`
 	InvalidRecords []string      `json:"invalidRecords"`
 	RetryRecords   []string      `json:"retryRecords"`
 }
 
-func (s *StorageService) GetRecords(ctx context.Context, params GetRecordsParams) (GetRecordsReturn, error) {
+func (s *StorageService) GetRecords(ctx context.Context, params GetRecordsParams) (RecordsResponse, error) {
 	url, _ := url.Parse(s.endpoint + "/query/records")
-	var res GetRecordsReturn
+	var res RecordsResponse
 
 	req, err := s.client.NewRequest("POST", url.String(), params, nil)
 	if err != nil {

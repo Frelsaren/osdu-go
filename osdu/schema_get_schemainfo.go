@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 )
 
-type GetSchemaParams struct {
+type GetSchemaInfoParams struct {
 	Authority          *string `json:"authority,omitempty"`
 	Source             *string `json:"source,omitempty"`
 	EntityType         *string `json:"entityType,omitempty"`
@@ -19,28 +19,28 @@ type GetSchemaParams struct {
 	Offset             *int32  `json:"offset,omitempty"`
 }
 
-type Response struct {
+type SchemaInfoResponse struct {
 	SchemaInfos []SchemaInfo `json:"schemaInfos"`
 	Offset      int          `json:"offset"`
 	Count       int          `json:"count"`
 	TotalCount  int          `json:"totalCount"`
 }
 
-func (s *SchemaService) GetSchemaInfo(ctx context.Context, params GetSchemaParams) (Response, error) {
-	var response Response
+func (s *SchemaService) GetSchemaInfo(ctx context.Context, params GetSchemaInfoParams) (SchemaInfoResponse, error) {
+	var res SchemaInfoResponse
 	paramsAsMap, err := structToMap(params)
 	if err != nil {
-		return response, err
+		return res, err
 	}
 
 	req, err := s.client.NewRequest("GET", s.endpoint+"/schema", nil, &paramsAsMap)
 	if err != nil {
-		return response, err
+		return res, err
 	}
 
-	_, err = s.client.Do(ctx, req, &response)
+	_, err = s.client.Do(ctx, req, &res)
 
-	return response, err
+	return res, err
 
 }
 
