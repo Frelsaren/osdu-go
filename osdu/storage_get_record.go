@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func (s *StorageService) GetRecord(ctx context.Context, id string, v *interface{}, attributes []string) error {
+func (s *StorageService) GetRecord(ctx context.Context, id string, v *Record, attributes []string) error {
 	url, _ := url.Parse(s.endpoint + "/records/" + id)
 	params := make(map[string]string)
 
