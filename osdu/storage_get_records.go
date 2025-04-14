@@ -11,9 +11,9 @@ type GetRecordsParams struct {
 }
 
 type RecordsResponse struct {
-	Records        []interface{} `json:"records"`
-	InvalidRecords []string      `json:"invalidRecords"`
-	RetryRecords   []string      `json:"retryRecords"`
+	Records        []Record `json:"records"`
+	InvalidRecords []string `json:"invalidRecords"`
+	RetryRecords   []string `json:"retryRecords"`
 }
 
 func (s *StorageService) GetRecords(ctx context.Context, params GetRecordsParams) (RecordsResponse, error) {

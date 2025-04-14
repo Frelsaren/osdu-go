@@ -13,9 +13,10 @@ import (
 )
 
 const (
-	SearchServicePath  = "search/v2"
-	StorageServicePath = "storage/v2"
-	SchemaServicePath  = "schema-service/v1"
+	SearchServicePath  = "api/search/v2"
+	StorageServicePath = "api/storage/v2"
+	SchemaServicePath  = "api/schema-service/v1"
+	DatasetServicePath = "api/dataset/v1"
 )
 
 type service struct {
@@ -32,6 +33,7 @@ type Client struct {
 	Storage *StorageService
 	Search  *SearchService
 	Schema  *SchemaService
+	Dataset *DatasetService
 }
 
 func (c *Client) Initialize() {
@@ -51,6 +53,10 @@ func (c *Client) Initialize() {
 	c.Schema = &SchemaService{
 		client:   c,
 		endpoint: SearchServicePath,
+	}
+	c.Dataset = &DatasetService{
+		client:   c,
+		endpoint: DatasetServicePath,
 	}
 }
 
