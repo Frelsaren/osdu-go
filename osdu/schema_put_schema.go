@@ -11,9 +11,9 @@ func (s *SchemaService) PutSchema(ctx context.Context, body WriteSchemaBody) (Wr
 		return res, err
 	}
 
-	httpres, err := s.client.Do(ctx, req, &res.Res)
+	httpRes, err := s.client.Do(ctx, req, &res.Res)
 
-	res.Code = int16(httpres.StatusCode)
+	res.Code = int16(httpRes.StatusCode)
 
 	return res, err
 

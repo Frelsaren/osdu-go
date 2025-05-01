@@ -10,9 +10,9 @@ import (
 
 func main() {
 	ctx := context.Background()
-	BaseURL, e := url.Parse("http://localhost:8080/")
-	if e != nil {
-		panic(e)
+	BaseURL, err := url.Parse("http://localhost:8080/")
+	if err != nil {
+		panic(err)
 	}
 	token := acquireToken()
 	partition := "default"
