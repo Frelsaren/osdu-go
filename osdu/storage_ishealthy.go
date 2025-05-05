@@ -1,9 +1,12 @@
 package osdu
 
-import "context"
+import (
+	"context"
+	"fmt"
+)
 
 func (s *StorageService) IsHealthy(ctx context.Context) (bool, error) {
-	req, err := s.client.NewRequest("GET", s.endpoint+"/liveness_check", nil, nil)
+	req, err := s.client.NewRequest("GET", fmt.Sprintf("%s/liveness_check", s.endpoint), nil, nil)
 	if err != nil {
 		return false, err
 	}

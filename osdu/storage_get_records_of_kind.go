@@ -2,6 +2,7 @@ package osdu
 
 import (
 	"context"
+	"fmt"
 	"net/url"
 )
 
@@ -17,7 +18,7 @@ type RecordsOfKindResponse struct {
 }
 
 func (s *StorageService) GetRecordsOfKind(ctx context.Context, params GetRecordOfKindParams) (RecordsOfKindResponse, error) {
-	url, _ := url.Parse(s.endpoint + "/query/records?kind=" + params.Kind)
+	url, _ := url.Parse(fmt.Sprintf("%s/records", s.endpoint))
 	queryparams := make(map[string]string)
 	res := RecordsOfKindResponse{}
 
@@ -30,6 +31,8 @@ func (s *StorageService) GetRecordsOfKind(ctx context.Context, params GetRecordO
 	}
 
 	req, err := s.client.NewRequest("GET", url.String(), nil, &queryparams)
+	urlString := req.URL.String()
+	fmt.Println("Request URL:", urlString)
 	if err != nil {
 		return res, err
 	}

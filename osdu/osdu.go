@@ -13,10 +13,11 @@ import (
 )
 
 const (
-	SearchServicePath  = "api/search/v2"
-	StorageServicePath = "api/storage/v2"
-	SchemaServicePath  = "api/schema-service/v1"
-	DatasetServicePath = "api/dataset/v1"
+	SearchServicePath      = "api/search/v2"
+	StorageServicePath     = "api/storage/v2"
+	SchemaServicePath      = "api/schema-service/v1"
+	DatasetServicePath     = "api/dataset/v1"
+	EntitlementServicePath = "api/entitlements/v2"
 )
 
 type service struct {
@@ -30,10 +31,11 @@ type Client struct {
 	BaseURL   *url.URL
 	Partition *string
 
-	Storage *StorageService
-	Search  *SearchService
-	Schema  *SchemaService
-	Dataset *DatasetService
+	Storage     *StorageService
+	Search      *SearchService
+	Schema      *SchemaService
+	Dataset     *DatasetService
+	Entitlement *EntitlementService
 }
 
 func (c *Client) Initialize() {
@@ -57,6 +59,10 @@ func (c *Client) Initialize() {
 	c.Dataset = &DatasetService{
 		client:   c,
 		endpoint: DatasetServicePath,
+	}
+	c.Entitlement = &EntitlementService{
+		client:   c,
+		endpoint: EntitlementServicePath,
 	}
 }
 
@@ -114,12 +120,12 @@ func (c *Client) Do(ctx context.Context, req *http.Request, v interface{}) (*htt
 	if err != nil {
 		return resp, err
 	}
+	defer resp.Body.Close()
 
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-		return resp, errors.New(resp.Status)
+		bodyBytes, _ := io.ReadAll(resp.Body)
+		return resp, errors.New(string(bodyBytes))
 	}
-
-	defer resp.Body.Close()
 
 	switch v := v.(type) {
 	case nil:

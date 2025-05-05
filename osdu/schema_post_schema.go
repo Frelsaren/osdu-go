@@ -2,11 +2,12 @@ package osdu
 
 import (
 	"context"
+	"fmt"
 )
 
 func (s *SchemaService) PostSchema(ctx context.Context, body WriteSchemaBody) (WriteSchemaRespone, error) {
 	var res WriteSchemaRespone
-	req, err := s.client.NewRequest("POST", s.endpoint+"/schema", body, nil)
+	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/schema", s.endpoint), body, nil)
 	if err != nil {
 		return res, err
 	}

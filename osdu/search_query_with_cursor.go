@@ -1,6 +1,9 @@
 package osdu
 
-import "context"
+import (
+	"context"
+	"fmt"
+)
 
 type QueryWithCursorParams struct {
 	Kind            []string       `json:"kind"`
@@ -16,7 +19,7 @@ type QueryWithCursorParams struct {
 }
 
 func (s *SearchService) QueryWithCursor(ctx context.Context, body QueryWithCursorParams) (SearchResponse, error) {
-	req, err := s.client.NewRequest("POST", s.endpoint+"/query_with_cursor", body, nil)
+	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/query_with_cursor", s.endpoint), body, nil)
 	if err != nil {
 		return SearchResponse{}, err
 	}

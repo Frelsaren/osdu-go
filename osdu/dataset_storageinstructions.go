@@ -1,6 +1,9 @@
 package osdu
 
-import "context"
+import (
+	"context"
+	"fmt"
+)
 
 type StorageInstructions struct {
 	StorageLocation map[string]interface{} `json:"storageLocation"`
@@ -13,7 +16,7 @@ func (s *DatasetService) GenerateStorageInstructions(ctx context.Context, kindSu
 		kindSubtype: kindSubtype,
 	}
 
-	req, err := s.client.NewRequest("GET", s.endpoint+"/storageInstructions", nil, &params)
+	req, err := s.client.NewRequest("GET", fmt.Sprintf("%s/storageInstructions", s.endpoint), nil, &params)
 
 	if err != nil {
 		return nil, err

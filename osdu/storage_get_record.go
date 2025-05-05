@@ -2,12 +2,13 @@ package osdu
 
 import (
 	"context"
+	"fmt"
 	"net/url"
 	"strings"
 )
 
 func (s *StorageService) GetRecord(ctx context.Context, id string, v *Record, attributes []string) error {
-	url, _ := url.Parse(s.endpoint + "/records/" + id)
+	url, _ := url.Parse(fmt.Sprintf("%s/records/%s", s.endpoint, id))
 	params := make(map[string]string)
 
 	if len(attributes) > 0 {

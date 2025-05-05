@@ -9,9 +9,9 @@ import (
 
 func main() {
 	ctx := context.Background()
-	BaseURL, e := url.Parse("http://localhost:8080/")
-	if e != nil {
-		panic(e)
+	BaseURL, err := url.Parse("http://localhost:8080/")
+	if err != nil {
+		panic(err)
 	}
 	token := acquireToken()
 	partition := "default"
@@ -24,7 +24,7 @@ func main() {
 
 	client.Initialize()
 
-	var schema interface{}
+	var schema any
 	client.Schema.GetSchema(ctx, "osdu:wks:master-data--Field:1.1.0", &schema)
 
 }

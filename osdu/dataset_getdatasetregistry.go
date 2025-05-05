@@ -18,7 +18,7 @@ func (s *DatasetService) GetDatasetRegistries(ctx context.Context, datasetIDs []
 		DatasetRegistryIds: datasetIDs,
 	}
 
-	req, err := s.client.NewRequest("POST", s.endpoint+"/getDatasetRegistry", body, nil)
+	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/getDatasetRegistry", s.endpoint), body, nil)
 	if err != nil {
 		return nil, err
 	}
