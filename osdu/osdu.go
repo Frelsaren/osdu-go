@@ -120,12 +120,12 @@ func (c *Client) Do(ctx context.Context, req *http.Request, v interface{}) (*htt
 	if err != nil {
 		return resp, err
 	}
+	defer resp.Body.Close()
 
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-		return resp, errors.New(resp.Status)
+		bodyBytes, _ := io.ReadAll(resp.Body)
+		return resp, errors.New(string(bodyBytes))
 	}
-
-	defer resp.Body.Close()
 
 	switch v := v.(type) {
 	case nil:
