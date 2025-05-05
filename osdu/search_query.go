@@ -1,9 +1,12 @@
 package osdu
 
-import "context"
+import (
+	"context"
+	"fmt"
+)
 
 func (s *SearchService) Query(ctx context.Context, body QueryParams) (SearchResponse, error) {
-	req, err := s.client.NewRequest("POST", s.endpoint+"/query", body, nil)
+	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/query", s.endpoint), body, nil)
 	if err != nil {
 		return SearchResponse{}, err
 	}

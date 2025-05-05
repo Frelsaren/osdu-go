@@ -7,7 +7,7 @@ import (
 
 func (s *DatasetService) MetadataSoftDelete(ctx context.Context, id string) error {
 
-	req, _ := s.client.NewRequest("POST", s.endpoint+"/metadataRecord/"+id+"/softDelete", nil, nil)
+	req, _ := s.client.NewRequest("POST", fmt.Sprintf("%s/metadataRecord/%s/softdelete", s.endpoint, id), nil, nil)
 
 	resp, err := s.client.Do(ctx, req, nil)
 	if err != nil {

@@ -3,6 +3,7 @@ package osdu
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 )
 
 type GetSchemaInfoParams struct {
@@ -33,7 +34,7 @@ func (s *SchemaService) GetSchemaInfo(ctx context.Context, params GetSchemaInfoP
 		return res, err
 	}
 
-	req, err := s.client.NewRequest("GET", s.endpoint+"/schema", nil, &paramsAsMap)
+	req, err := s.client.NewRequest("GET", fmt.Sprintf("%s/schema", s.endpoint), nil, &paramsAsMap)
 	if err != nil {
 		return res, err
 	}

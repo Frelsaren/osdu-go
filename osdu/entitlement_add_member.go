@@ -2,6 +2,7 @@ package osdu
 
 import (
 	"context"
+	"fmt"
 )
 
 type AddMemberResponse struct {
@@ -17,7 +18,7 @@ func (s *EntitlementService) AddMember(ctx context.Context, groupEmail, email, r
 		Role:  role,
 	}
 
-	req, err := s.client.NewRequest("POST", s.endpoint+"/groups/"+groupEmail+"/members", body, nil)
+	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/groups/%s/members", s.endpoint, groupEmail), body, nil)
 	if err != nil {
 		return res, err
 	}

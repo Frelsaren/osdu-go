@@ -1,13 +1,16 @@
 package osdu
 
-import "context"
+import (
+	"context"
+	"fmt"
+)
 
 type RegisterDatasetRequest struct {
 	DatasetRegistries []Record `json:"datasetRegistries"`
 }
 
 func (s *DatasetService) RegisterDataset(ctx context.Context, requestBody RegisterDatasetRequest) (*RegisterDatasetRequest, error) {
-	req, err := s.client.NewRequest("PUT", s.endpoint+"/registerDataset", requestBody, nil)
+	req, err := s.client.NewRequest("PUT", fmt.Sprintf("%s/registerDataset", s.endpoint), requestBody, nil)
 	if err != nil {
 		return nil, err
 	}

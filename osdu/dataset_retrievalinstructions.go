@@ -1,6 +1,9 @@
 package osdu
 
-import "context"
+import (
+	"context"
+	"fmt"
+)
 
 type retrievalInstructionsBody struct {
 	DatasetRegistryIds []string `json:"datasetRegistryIds"`
@@ -21,7 +24,7 @@ func (s *DatasetService) GetRetrievalInstructions(ctx context.Context, ids []str
 	body := retrievalInstructionsBody{
 		DatasetRegistryIds: ids,
 	}
-	req, err := s.client.NewRequest("GET", s.endpoint+"/retrievalInstructions", body, &params)
+	req, err := s.client.NewRequest("GET", fmt.Sprintf("%s/retrievalInstructions", s.endpoint), body, &params)
 
 	if err != nil {
 		return nil, err
