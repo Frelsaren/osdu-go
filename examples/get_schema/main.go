@@ -18,11 +18,10 @@ func main() {
 
 	client := osdu.Client{
 		BaseURL:   BaseURL,
-		Token:     &token,
 		Partition: &partition,
 	}
 
-	client.Initialize()
+	client.InitializeWithToken(&token)
 
 	var schema any
 	client.Schema.GetSchema(ctx, "osdu:wks:master-data--Field:1.1.0", &schema)
