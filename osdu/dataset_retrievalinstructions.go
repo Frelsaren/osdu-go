@@ -24,7 +24,7 @@ func (s *DatasetService) GetRetrievalInstructions(ctx context.Context, ids []str
 	body := retrievalInstructionsBody{
 		DatasetRegistryIds: ids,
 	}
-	req, err := s.client.NewRequest("GET", fmt.Sprintf("%s/retrievalInstructions", s.endpoint), body, &params)
+	req, err := s.client.NewRequest("GET", fmt.Sprintf("%s/retrievalInstructions", datasetServicePath), body, &params)
 
 	if err != nil {
 		return nil, err

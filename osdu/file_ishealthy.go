@@ -5,8 +5,8 @@ import (
 	"fmt"
 )
 
-func (s *DatasetService) IsHealthy(ctx context.Context) (bool, error) {
-	req, err := s.client.NewRequest("GET", fmt.Sprintf("%s/liveness_check", datasetServicePath), nil, nil)
+func (s *FileService) IsHealthy(ctx context.Context) (bool, error) {
+	req, err := s.client.NewRequest("GET", fmt.Sprintf("%s/liveness_check", fileServicePath), nil, nil)
 	if err != nil {
 		return false, err
 	}

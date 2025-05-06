@@ -7,7 +7,7 @@ import (
 
 func (s *SchemaService) PostSchema(ctx context.Context, body WriteSchemaBody) (WriteSchemaRespone, error) {
 	var res WriteSchemaRespone
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/schema", s.endpoint), body, nil)
+	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/schema", schemaServicePath), body, nil)
 	if err != nil {
 		return res, err
 	}

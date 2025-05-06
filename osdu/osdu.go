@@ -13,16 +13,16 @@ import (
 )
 
 const (
-	SearchServicePath      = "api/search/v2"
-	StorageServicePath     = "api/storage/v2"
-	SchemaServicePath      = "api/schema-service/v1"
-	DatasetServicePath     = "api/dataset/v1"
-	EntitlementServicePath = "api/entitlements/v2"
+	searchServicePath      = "api/search/v2"
+	storageServicePath     = "api/storage/v2"
+	schemaServicePath      = "api/schema-service/v1"
+	datasetServicePath     = "api/dataset/v1"
+	entitlementServicePath = "api/entitlements/v2"
+	fileServicePath        = "api/file/v2"
 )
 
 type service struct {
-	client   *Client
-	endpoint string
+	client *Client
 }
 
 type Client struct {
@@ -31,11 +31,14 @@ type Client struct {
 	BaseURL   *url.URL
 	Partition *string
 
+	common service
+
 	Storage     *StorageService
 	Search      *SearchService
 	Schema      *SchemaService
 	Dataset     *DatasetService
 	Entitlement *EntitlementService
+	File        *FileService
 }
 
 func (c *Client) Initialize() {
@@ -44,26 +47,13 @@ func (c *Client) Initialize() {
 		c.client = &http.Client{}
 	}
 
-	c.Storage = &StorageService{
-		client:   c,
-		endpoint: StorageServicePath,
-	}
-	c.Search = &SearchService{
-		client:   c,
-		endpoint: SearchServicePath,
-	}
-	c.Schema = &SchemaService{
-		client:   c,
-		endpoint: SearchServicePath,
-	}
-	c.Dataset = &DatasetService{
-		client:   c,
-		endpoint: DatasetServicePath,
-	}
-	c.Entitlement = &EntitlementService{
-		client:   c,
-		endpoint: EntitlementServicePath,
-	}
+	c.common.client = c
+	c.Storage = (*StorageService)(&c.common)
+	c.Search = (*SearchService)(&c.common)
+	c.Schema = (*SchemaService)(&c.common)
+	c.Dataset = (*DatasetService)(&c.common)
+	c.Entitlement = (*EntitlementService)(&c.common)
+	c.File = (*FileService)(&c.common)
 }
 
 func (c *Client) NewRequest(method, urlStr string, body interface{}, urlParams *map[string]string) (*http.Request, error) {

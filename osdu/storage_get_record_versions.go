@@ -11,7 +11,7 @@ type RecordVersionsResponse struct {
 }
 
 func (s *StorageService) GetRecordVersions(ctx context.Context, id string) (RecordVersionsResponse, error) {
-	req, err := s.client.NewRequest("GET", fmt.Sprintf("%s/records/versions/%s", s.endpoint, id), nil, nil)
+	req, err := s.client.NewRequest("GET", fmt.Sprintf("%s/records/versions/%s", storageServicePath, id), nil, nil)
 	if err != nil {
 		return RecordVersionsResponse{}, err
 	}

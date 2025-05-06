@@ -6,7 +6,7 @@ import (
 )
 
 func (s *SearchService) Query(ctx context.Context, body QueryParams) (SearchResponse, error) {
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/query", s.endpoint), body, nil)
+	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/query", searchServicePath), body, nil)
 	if err != nil {
 		return SearchResponse{}, err
 	}

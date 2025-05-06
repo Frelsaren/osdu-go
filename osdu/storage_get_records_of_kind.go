@@ -18,7 +18,7 @@ type RecordsOfKindResponse struct {
 }
 
 func (s *StorageService) GetRecordsOfKind(ctx context.Context, params GetRecordOfKindParams) (RecordsOfKindResponse, error) {
-	url, _ := url.Parse(fmt.Sprintf("%s/records", s.endpoint))
+	url, _ := url.Parse(fmt.Sprintf("%s/records", storageServicePath))
 	queryparams := make(map[string]string)
 	res := RecordsOfKindResponse{}
 

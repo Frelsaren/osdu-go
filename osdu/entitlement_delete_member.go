@@ -6,7 +6,7 @@ import (
 )
 
 func (s *EntitlementService) DeleteMember(ctx context.Context, memberEmail string) error {
-	req, err := s.client.NewRequest("DELETE", fmt.Sprintf("%s/members/%s", s.endpoint, memberEmail), nil, nil)
+	req, err := s.client.NewRequest("DELETE", fmt.Sprintf("%s/members/%s", entitlementServicePath, memberEmail), nil, nil)
 	if err != nil {
 		return err
 	}

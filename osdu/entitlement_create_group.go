@@ -17,7 +17,7 @@ type CreateGroupResponse struct {
 }
 
 func (s *EntitlementService) CreateGroup(ctx context.Context, body CreateGroupBody) (CreateGroupResponse, error) {
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/groups", s.endpoint), body, nil)
+	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/groups", entitlementServicePath), body, nil)
 	if err != nil {
 		return CreateGroupResponse{}, err
 	}
