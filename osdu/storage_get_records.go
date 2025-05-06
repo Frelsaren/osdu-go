@@ -18,7 +18,7 @@ type RecordsResponse struct {
 }
 
 func (s *StorageService) GetRecords(ctx context.Context, params GetRecordsParams) (RecordsResponse, error) {
-	url, _ := url.Parse(fmt.Sprintf("%s/query/records", s.endpoint))
+	url, _ := url.Parse(fmt.Sprintf("%s/query/records", storageServicePath))
 	var res RecordsResponse
 
 	req, err := s.client.NewRequest("POST", url.String(), params, nil)

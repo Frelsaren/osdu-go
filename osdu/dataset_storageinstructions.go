@@ -16,7 +16,7 @@ func (s *DatasetService) GenerateStorageInstructions(ctx context.Context, kindSu
 		kindSubtype: kindSubtype,
 	}
 
-	req, err := s.client.NewRequest("GET", fmt.Sprintf("%s/storageInstructions", s.endpoint), nil, &params)
+	req, err := s.client.NewRequest("GET", fmt.Sprintf("%s/storageInstructions", datasetServicePath), nil, &params)
 
 	if err != nil {
 		return nil, err

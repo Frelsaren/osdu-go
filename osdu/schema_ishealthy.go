@@ -8,7 +8,7 @@ import (
 )
 
 func (s *SchemaService) IsHealthy(ctx context.Context) (bool, error) {
-	req, err := s.client.NewRequest("GET", fmt.Sprintf("%s/liveness_check", s.endpoint), nil, nil)
+	req, err := s.client.NewRequest("GET", fmt.Sprintf("%s/liveness_check", schemaServicePath), nil, nil)
 	if err != nil {
 		return false, err
 	}

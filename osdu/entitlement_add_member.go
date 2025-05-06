@@ -18,7 +18,7 @@ func (s *EntitlementService) AddMember(ctx context.Context, groupEmail, email, r
 		Role:  role,
 	}
 
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/groups/%s/members", s.endpoint, groupEmail), body, nil)
+	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/groups/%s/members", entitlementServicePath, groupEmail), body, nil)
 	if err != nil {
 		return res, err
 	}

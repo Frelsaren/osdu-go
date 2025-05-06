@@ -10,7 +10,7 @@ type RegisterDatasetRequest struct {
 }
 
 func (s *DatasetService) RegisterDataset(ctx context.Context, requestBody RegisterDatasetRequest) (*RegisterDatasetRequest, error) {
-	req, err := s.client.NewRequest("PUT", fmt.Sprintf("%s/registerDataset", s.endpoint), requestBody, nil)
+	req, err := s.client.NewRequest("PUT", fmt.Sprintf("%s/registerDataset", datasetServicePath), requestBody, nil)
 	if err != nil {
 		return nil, err
 	}

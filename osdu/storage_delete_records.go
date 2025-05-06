@@ -6,7 +6,7 @@ import (
 )
 
 func (s *StorageService) DeleteRecords(ctx context.Context, ids []string) error {
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/records/delete", s.endpoint), ids, nil)
+	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/records/delete", storageServicePath), ids, nil)
 	if err != nil {
 		return err
 	}

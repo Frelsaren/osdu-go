@@ -34,7 +34,7 @@ func (s *SchemaService) GetSchemaInfo(ctx context.Context, params GetSchemaInfoP
 		return res, err
 	}
 
-	req, err := s.client.NewRequest("GET", fmt.Sprintf("%s/schema", s.endpoint), nil, &paramsAsMap)
+	req, err := s.client.NewRequest("GET", fmt.Sprintf("%s/schema", schemaServicePath), nil, &paramsAsMap)
 	if err != nil {
 		return res, err
 	}

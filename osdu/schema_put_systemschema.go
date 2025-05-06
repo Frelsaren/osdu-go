@@ -7,7 +7,7 @@ import (
 
 func (s *SchemaService) PutSystemSchema(ctx context.Context, body WriteSchemaBody) (WriteSchemaRespone, error) {
 	var res WriteSchemaRespone
-	req, err := s.client.NewRequest("PUT", fmt.Sprintf("%s/schema/system", s.endpoint), body, nil)
+	req, err := s.client.NewRequest("PUT", fmt.Sprintf("%s/schema/system", schemaServicePath), body, nil)
 	if err != nil {
 		return res, err
 	}

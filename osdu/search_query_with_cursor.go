@@ -19,7 +19,7 @@ type QueryWithCursorParams struct {
 }
 
 func (s *SearchService) QueryWithCursor(ctx context.Context, body QueryWithCursorParams) (SearchResponse, error) {
-	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/query_with_cursor", s.endpoint), body, nil)
+	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/query_with_cursor", searchServicePath), body, nil)
 	if err != nil {
 		return SearchResponse{}, err
 	}
