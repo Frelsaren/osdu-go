@@ -26,8 +26,9 @@ type service struct {
 }
 
 type Client struct {
-	client    *http.Client
-	Token     *string
+	client *http.Client
+	token  *string
+
 	BaseURL   *url.URL
 	Partition *string
 
@@ -41,7 +42,12 @@ type Client struct {
 	File        *FileService
 }
 
-func (c *Client) Initialize() {
+func (c *Client) InitializeWithToken(token *string) {
+	c.token = token
+	c.initialize()
+}
+
+func (c *Client) initialize() {
 
 	if c.client == nil {
 		c.client = &http.Client{}
@@ -97,8 +103,8 @@ func (c *Client) NewRequest(method, urlStr string, body interface{}, urlParams *
 
 	}
 
-	if c.Token != nil {
-		req.Header.Set("Authorization", "Bearer "+*c.Token)
+	if c.token != nil {
+		req.Header.Set("Authorization", "Bearer "+*c.token)
 	}
 	req.Header.Set("Data-Partition-Id", *c.Partition)
 

@@ -19,11 +19,10 @@ func main() {
 
 	client := osdu.Client{
 		BaseURL:   BaseURL,
-		Token:     &token,
 		Partition: &partition,
 	}
 
-	client.Initialize()
+	client.InitializeWithToken(&token)
 
 	var record osdu.Record
 	client.Storage.GetRecord(ctx, "1234567890", &record, nil)
