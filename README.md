@@ -39,11 +39,10 @@ func main() {
 
         client := osdu.Client{
                 BaseURL:   BaseURL,
-                Token:     &token,
                 Partition: &partition,
         }
 
-        client.Initialize()
+        client.InitializeWithToken(&token)
 
         params := osdu.GetRecordOfKindParams{
                 Kind: "osdu:wks:master-data--Field:1.0.0",
