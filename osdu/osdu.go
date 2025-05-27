@@ -13,12 +13,12 @@ import (
 )
 
 const (
-	searchServicePath      = "api/search/v2"
-	storageServicePath     = "api/storage/v2"
-	schemaServicePath      = "api/schema-service/v1"
-	datasetServicePath     = "api/dataset/v1"
-	entitlementServicePath = "api/entitlements/v2"
-	fileServicePath        = "api/file/v2"
+	searchServicePath      = "search/v2"
+	storageServicePath     = "storage/v2"
+	schemaServicePath      = "schema-service/v1"
+	datasetServicePath     = "dataset/v1"
+	entitlementServicePath = "entitlements/v2"
+	fileServicePath        = "file/v2"
 )
 
 type service struct {
@@ -30,7 +30,7 @@ type Client struct {
 	token  *string
 
 	BaseURL   *url.URL
-	Partition *string
+	Partition string
 
 	common service
 
@@ -42,9 +42,20 @@ type Client struct {
 	File        *FileService
 }
 
-func (c *Client) InitializeWithToken(token *string) {
+func NewClient(httpClient *http.Client) *Client {
+	if httpClient == nil {
+		httpClient = &http.Client{}
+	}
+	httpClient2 := *httpClient
+	c := &Client{client: &httpClient2}
+	c.initialize()
+	return c
+}
+
+func (c *Client) InitializeWithToken(token *string) *Client {
 	c.token = token
 	c.initialize()
+	return c
 }
 
 func (c *Client) initialize() {
@@ -106,7 +117,7 @@ func (c *Client) NewRequest(method, urlStr string, body interface{}, urlParams *
 	if c.token != nil {
 		req.Header.Set("Authorization", "Bearer "+*c.token)
 	}
-	req.Header.Set("Data-Partition-Id", *c.Partition)
+	req.Header.Set("Data-Partition-Id", c.Partition)
 
 	return req, nil
 }
