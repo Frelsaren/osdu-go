@@ -70,6 +70,12 @@ func testMethod(t *testing.T, r *http.Request, want string) {
 	}
 }
 
+func testQuery(t *testing.T, r *http.Request, key, value string) {
+	if r.URL.Query().Get(key) != value {
+		t.Errorf("Expected query parameter %s to be %s, got %s", key, value, r.URL.Query().Get(key))
+	}
+}
+
 func assertNoDiff(t *testing.T, want, got interface{}) {
 	t.Helper()
 	if diff := cmp.Diff(want, got); diff != "" {

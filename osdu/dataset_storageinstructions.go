@@ -6,8 +6,8 @@ import (
 )
 
 type StorageInstructions struct {
-	StorageLocation map[string]interface{} `json:"storageLocation"`
-	ProviderKey     string                 `json:"providerKey"`
+	StorageLocation map[string]any `json:"storageLocation"`
+	ProviderKey     string         `json:"providerKey"`
 }
 
 func (s *DatasetService) GenerateStorageInstructions(ctx context.Context, kindSubtype, expiryTime string) (*StorageInstructions, error) {
