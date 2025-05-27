@@ -10,7 +10,7 @@ func (s *DatasetService) RevokeURL(ctx context.Context, kindSubtype string, body
 		kindSubtype: kindSubtype,
 	}
 
-	req, err := s.client.NewRequest("GET", fmt.Sprintf("%s/storageInstructions", datasetServicePath), body, &params)
+	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/revokeURL", datasetServicePath), body, &params)
 
 	if err != nil {
 		return err
