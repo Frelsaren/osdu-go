@@ -19,10 +19,8 @@ func TestDatasetIsHealthy(t *testing.T) {
 	ctx := context.Background()
 	isHealthy, err := client.Dataset.IsHealthy(ctx)
 
-	if err != nil {
-		t.Errorf(("Received error"))
-	}
-	if !isHealthy {
-		t.Errorf("isHealhty returned false")
-	}
+	assertNilError(t, err)
+
+	assertNoDiff(t, true, isHealthy)
+
 }

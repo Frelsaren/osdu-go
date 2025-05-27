@@ -24,7 +24,7 @@ func (s *DatasetService) RevokeURL(ctx context.Context, kindSubtype string, body
 	}
 
 	if res.StatusCode != 204 {
-		return fmt.Errorf("failed to generate storage instructions, status code: %d", res.StatusCode)
+		return fmt.Errorf("failed to revoke url: %d", res.StatusCode)
 	}
 
 	return nil

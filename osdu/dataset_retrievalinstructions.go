@@ -19,7 +19,7 @@ type RetrievalInstructions struct {
 
 func (s *DatasetService) GetRetrievalInstructions(ctx context.Context, ids []string, expiryTime string) (*RetrievalInstructions, error) {
 	params := map[string]string{
-		expiryTime: expiryTime,
+		"expiryTime": expiryTime,
 	}
 	body := retrievalInstructionsBody{
 		DatasetRegistryIds: ids,
