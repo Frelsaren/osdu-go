@@ -12,7 +12,7 @@ func (s *SchemaService) PutSystemSchema(ctx context.Context, body WriteSchemaBod
 		return res, err
 	}
 
-	httpres, err := s.client.Do(ctx, req, &res.Res)
+	httpres, err := s.client.Do(ctx, req, &res.SchemaInfo)
 
 	res.Code = int16(httpres.StatusCode)
 

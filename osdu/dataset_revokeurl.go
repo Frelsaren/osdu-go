@@ -10,7 +10,7 @@ func (s *DatasetService) RevokeURL(ctx context.Context, kindSubtype string, body
 		kindSubtype: kindSubtype,
 	}
 
-	req, err := s.client.NewRequest("GET", fmt.Sprintf("%s/storageInstructions", datasetServicePath), body, &params)
+	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/revokeURL", datasetServicePath), body, &params)
 
 	if err != nil {
 		return err
@@ -24,7 +24,7 @@ func (s *DatasetService) RevokeURL(ctx context.Context, kindSubtype string, body
 	}
 
 	if res.StatusCode != 204 {
-		return fmt.Errorf("failed to generate storage instructions, status code: %d", res.StatusCode)
+		return fmt.Errorf("failed to revoke url: %d", res.StatusCode)
 	}
 
 	return nil

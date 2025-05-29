@@ -12,7 +12,7 @@ func (s *SchemaService) PostSchema(ctx context.Context, body WriteSchemaBody) (W
 		return res, err
 	}
 
-	httpres, err := s.client.Do(ctx, req, &res.Res)
+	httpres, err := s.client.Do(ctx, req, &res.SchemaInfo)
 
 	res.Code = int16(httpres.StatusCode)
 

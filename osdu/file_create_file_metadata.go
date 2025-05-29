@@ -10,7 +10,7 @@ type createFileMetadataResponse struct {
 }
 
 func (s *FileService) CreateFileMetadata(ctx context.Context, id string, v *Record) (string, error) {
-	req, err := s.client.NewRequest("DELETE", fmt.Sprintf("%s/files/metadata", fileServicePath), &v, nil)
+	req, err := s.client.NewRequest("POST", fmt.Sprintf("%s/files/metadata", fileServicePath), &v, nil)
 	if err != nil {
 		return "", err
 	}
