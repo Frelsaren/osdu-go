@@ -24,7 +24,7 @@ func TestGetFileMetadata(t *testing.T) {
 	expectedMetadata := &Record{
 		ID:      "test:master-data--File:123123",
 		Kind:    "osdu:wks:File:1.0.0",
-		Version: "1.0.0",
+		Version: 123,
 	}
 
 	assertNoDiff(t, metadata, expectedMetadata)
