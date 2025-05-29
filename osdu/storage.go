@@ -5,7 +5,7 @@ type StorageService service
 
 type Record struct {
 	ID      string `json:"id"`
-	Version string `json:"version"`
+	Version int64  `json:"version"`
 	Kind    string `json:"kind"`
 	ACL     struct {
 		Owners  []string `json:"owners"`
