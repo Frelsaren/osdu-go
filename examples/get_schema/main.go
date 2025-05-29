@@ -16,12 +16,9 @@ func main() {
 	token := acquireToken()
 	partition := "default"
 
-	client := osdu.Client{
-		BaseURL:   BaseURL,
-		Partition: &partition,
-	}
-
-	client.InitializeWithToken(&token)
+	client := osdu.NewClient(nil).InitializeWithToken(&token)
+	client.BaseURL = BaseURL
+	client.Partition = partition
 
 	var schema any
 	client.Schema.GetSchema(ctx, "osdu:wks:master-data--Field:1.1.0", &schema)

@@ -14,15 +14,13 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
 	token := acquireToken()
 	partition := "default"
 
-	client := osdu.Client{
-		BaseURL:   BaseURL,
-		Partition: &partition,
-	}
-
-	client.InitializeWithToken(&token)
+	client := osdu.NewClient(nil).InitializeWithToken(&token)
+	client.BaseURL = BaseURL
+	client.Partition = partition
 
 	var record osdu.Record
 	client.Storage.GetRecord(ctx, "1234567890", &record, nil)
