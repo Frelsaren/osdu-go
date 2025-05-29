@@ -13,7 +13,7 @@ type GetRecordOfKindParams struct {
 }
 
 type RecordsOfKindResponse struct {
-	Cursor  string   `json:"cursor"`
+	Cursor  *string  `json:"cursor,omitempty"`
 	Results []string `json:"results"`
 }
 
