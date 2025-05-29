@@ -3,10 +3,17 @@ package osdu
 import (
 	"context"
 	"fmt"
+	"strings"
 )
 
-func (s *StorageService) GetRecordVersion(ctx context.Context, id string, version string, v *Record) error {
-	req, err := s.client.NewRequest("GET", fmt.Sprintf("%s/records/%s/%s", storageServicePath, id, version), nil, nil)
+func (s *StorageService) GetRecordVersion(ctx context.Context, id string, version string, v *Record, attributes []string) error {
+	params := make(map[string]string)
+
+	if len(attributes) > 0 {
+		params["attributes"] = strings.Join(attributes, ",")
+	}
+
+	req, err := s.client.NewRequest("GET", fmt.Sprintf("%s/records/%s/%s", storageServicePath, id, version), nil, &params)
 	if err != nil {
 		return err
 	}
