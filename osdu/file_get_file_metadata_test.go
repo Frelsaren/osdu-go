@@ -14,7 +14,7 @@ func TestGetFileMetadata(t *testing.T) {
 	mux.HandleFunc(fmt.Sprintf("/%s/files/%s/metadata", fileServicePath, id), func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		w.Header().Set("Content-Type", "application/json")
-		fmt.Fprint(w, `{"id": "test:master-data--File:123123", "kind": "osdu:wks:File:1.0.0", "version": "1.0.0"}`)
+		fmt.Fprint(w, `{"id": "test:master-data--File:123123", "kind": "osdu:wks:File:1.0.0", "version": 123}`)
 	})
 	ctx := context.Background()
 	metadata := &Record{}
