@@ -34,15 +34,13 @@ func main() {
         if e != nil {
                 panic(e)
         }
+        
         token := acquireToken()
-        partition := "default"
+	partition := "default"
 
-        client := osdu.Client{
-                BaseURL:   BaseURL,
-                Partition: &partition,
-        }
-
-        client.InitializeWithToken(&token)
+	client := osdu.NewClient(nil).InitializeWithToken(&token)
+	client.BaseURL = BaseURL
+	client.Partition = partition
 
         params := osdu.GetRecordOfKindParams{
                 Kind: "osdu:wks:master-data--Field:1.0.0",
