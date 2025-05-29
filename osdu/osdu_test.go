@@ -63,6 +63,44 @@ func setup(t *testing.T) (client *Client, mux *http.ServeMux, serverURL string) 
 
 }
 
+func TestNewClient(t *testing.T) {
+	client := NewClient(nil)
+	if client == nil {
+		t.Fatal("NewClient returned nil")
+	}
+	if client.client == nil {
+		t.Fatal("NewClient returned a client with nil http.Client")
+	}
+
+	assertNoDiff(t, client.client, client.Dataset.client.client)
+
+}
+
+func TestInitializeWithToken(t *testing.T) {
+	token := "test-token"
+	client := NewClient(nil).InitializeWithToken(&token)
+	assertNoDiff(t, client.token, &token)
+
+	if client.Storage == nil {
+		t.Fatal("NewClient returned a client with nil StorageService")
+	}
+	if client.Search == nil {
+		t.Fatal("NewClient returned a client with nil SearchService")
+	}
+	if client.Schema == nil {
+		t.Fatal("NewClient returned a client with nil SchemaService")
+	}
+	if client.Dataset == nil {
+		t.Fatal("NewClient returned a client with nil DatasetService")
+	}
+	if client.Entitlement == nil {
+		t.Fatal("NewClient returned a client with nil EntitlementService")
+	}
+	if client.File == nil {
+		t.Fatal("NewClient returned a client with nil FileService")
+	}
+}
+
 func testMethod(t *testing.T, r *http.Request, want string) {
 	t.Helper()
 	if got := r.Method; got != want {
