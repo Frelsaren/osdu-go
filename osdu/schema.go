@@ -43,6 +43,6 @@ type SchemaInfo struct {
 }
 
 type WriteSchemaRespone struct {
-	Code int16
-	Res  SchemaInfo
+	Code       int16
+	SchemaInfo SchemaInfo
 }
